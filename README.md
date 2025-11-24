@@ -19,37 +19,43 @@ The Lambda function:
 
 ---
 
-# 📁 2. Repository Structure  
+## 📁 Repository Structure
 
+<details>
+<summary><strong>Click to expand</strong></summary>
 
+```plaintext
+📦 fire-risk-prediction-onnx-lambda/
+├── Dockerfile              # Docker image definition for AWS Lambda
+├── lambda_function.py      # Inference logic (NDVI/LST → ONNX → TIFF)
+├── requirements.txt        # Rasterio, ONNX Runtime, NumPy, boto3
+├── request.json            # Example input for Lambda/API
+├── response.json           # Example Lambda response
+├── output.json             # CLI invocation output
+└── README.md               # Project documentation
 
-fire-risk-prediction-onnx-lambda/
-│── Dockerfile
-│── lambda_function.py
-│── requirements.txt
-│── request.json
-│── response.json
-│── output.json
-└── README.md
+---
 
 
 ---
 
-# 🗂️ 3. Required S3 Structure  
+# ⚡ Y aquí tienes la sección *Required S3 Structure* también formateada igual:
 
-Bucket must contain:
+```md
+## 🗂️ Required S3 Structure
 
+<details>
+<summary><strong>Click to expand</strong></summary>
 
-
-tsbiomassmodeldata/
-│── model/
-│ └── xgb_fire_model.onnx
+```plaintext
+📦 tsbiomassmodeldata/
+├── 📁 model/
+│   └── xgb_fire_model.onnx              # ONNX model loaded by Lambda
 │
-│── img__...NDVI....tif
-│── img__...LST....tif
+├── img__...NDVI...tif                   # Input NDVI
+├── img__...LST...tif                    # Input LST
 │
-└── results/ <-- lambda writes output here
-
+└── 📁 results/                           # Lambda writes fire_prob_*.tif here
 
 ---
 
@@ -76,12 +82,13 @@ docker tag fire-lambda:latest 036134507423.dkr.ecr.us-east-1.amazonaws.com/fire-
 Push:
 
 docker push 036134507423.dkr.ecr.us-east-1.amazonaws.com/fire-lambda:latest
-
+---
 🟧 5. Update AWS Lambda (Container Image)
 aws lambda update-function-code \
   --function-name fire_detection_lambda \
   --image-uri 036134507423.dkr.ecr.us-east-1.amazonaws.com/fire-lambda:latest \
   --region us-east-1
+---
 
 🧪 6. Test via AWS CLI
 
@@ -93,6 +100,7 @@ aws lambda invoke \
   --payload file://request.json \
   output.json \
   --region us-east-1
+---
 
 🌐 7. API Gateway (HTTP API)
 Create API
@@ -101,6 +109,7 @@ aws apigatewayv2 create-api \
   --protocol-type HTTP \
   --target arn:aws:lambda:us-east-1:036134507423:function:fire_detection_lambda \
   --region us-east-1
+---
 
 Add permission
 aws lambda add-permission \
@@ -110,18 +119,21 @@ aws lambda add-permission \
   --principal apigateway.amazonaws.com \
   --source-arn "arn:aws:execute-api:us-east-1:ACCOUNT_ID:API_ID/*/*" \
   --region us-east-1
+---
 
 Add route “POST /infer”
 aws apigatewayv2 create-route \
   --api-id API_ID \
   --route-key "POST /infer" \
   --target "integrations/INTEGRATION_ID"
+---
 
 🌍 8. Test Via API Gateway (Curl)
 curl -X POST \
   -H "Content-Type: application/json" \
   -d @request.json \
   https://YOUR_API_ID.execute-api.us-east-1.amazonaws.com/infer
+---
 
 📄 9. Example Request (request.json)
 {
@@ -129,6 +141,7 @@ curl -X POST \
   "ndvi_key": "img__20251121115911__MOD13A1__NDVI_EVI_DetailedQA_sur_refl_b01_sur_refl___2025_10_15__1517.tif",
   "lst_key":  "img__20251121120054__MOD11A1__LST_Day_1km_LST_Night_1km_QC_Day_Day_view___2025_10_06__2219.tif"
 }
+---
 
 📄 10. Example Lambda Response
 {
@@ -137,6 +150,7 @@ curl -X POST \
   "input_LST": "s3://tsbiomassmodeldata/...LST...tif",
   "output": "s3://tsbiomassmodeldata/results/fire_prob_XXXX.tif"
 }
+---
 
 🧱 11. Reproducibility Checklist
 
@@ -155,6 +169,7 @@ Create API Gateway
 Add invoke permissions
 
 Send POST /infer requests
+---
 
 👥 12. Authors
 
