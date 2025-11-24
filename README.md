@@ -24,13 +24,13 @@ The Lambda function:
 
 
 fire-risk-prediction-onnx-lambda/
- │── Dockerfile
- │── lambda_function.py
- │── requirements.txt
- │── request.json
- │── response.json
- │── output.json
- │── README.md
+│── Dockerfile
+│── lambda_function.py
+│── requirements.txt
+│── request.json
+│── response.json
+│── output.json
+└── README.md
 
 
 ---
