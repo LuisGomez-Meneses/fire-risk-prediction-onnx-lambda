@@ -39,9 +39,6 @@ The Lambda function:
 
 ---
 
-# ⚡ Y aquí tienes la sección *Required S3 Structure* también formateada igual:
-
-```md
 ## 🗂️ Required S3 Structure
 
 <details>
