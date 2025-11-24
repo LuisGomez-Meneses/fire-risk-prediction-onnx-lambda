@@ -1,13 +1,3 @@
-AQUÍ TIENES EL COMANDO ÚNICO PARA PEGAR TODO EL README
-
-Este comando sobrescribe tu README.md con el contenido completo, profesional y final.
-
-📌 Cópialo COMPLETO y pégalo tal cual en Git Bash dentro del repositorio.
-
-cat > README.md << 'EOF'
-# 🔥 Fire Risk Prediction – ONNX Model on AWS Lambda  
-Service for computing **fire probability maps** using MODIS NDVI & LST products, an **ONNX model**, and an AWS serverless backend based on **Lambda + Docker + API Gateway**.
-
 This repository is **fully replicable**: anyone can deploy the same architecture from scratch.
 
 ---
@@ -34,13 +24,13 @@ The Lambda function:
 
 
 fire-risk-prediction-onnx-lambda/
-│── Dockerfile
-│── lambda_function.py
-│── requirements.txt
-│── request.json
-│── response.json
-│── output.json
-│── README.md
+ │── Dockerfile
+ │── lambda_function.py
+ │── requirements.txt
+ │── request.json
+ │── response.json
+ │── output.json
+ │── README.md
 
 
 ---
